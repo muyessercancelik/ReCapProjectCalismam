@@ -3,25 +3,26 @@ using Entities.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 
 namespace DataAccess.Concrete.InMemory
 {
-    public class InMemoryCarDal : ICarDal
+    public class EntityFrameworkCarDal : ICarDal
     {
         List<Car> _cars;
-        public InMemoryCarDal()
+        public EntityFrameworkCarDal()
         {
             _cars = new List<Car> {
-            new Car{Id=1, BrandId=1, ColorId=1, CarName="C3 Aircross", ModelYear="2000", DailyPrice=3000, Description="1.2 PureTech"},
-            new Car{Id=2, BrandId=1, ColorId=2, CarName="C4 Cactus", ModelYear="2005", DailyPrice=5000, Description="1.5 BlueHDI"},
-            new Car{Id=3, BrandId=2, ColorId=2, CarName="EcoSport", ModelYear="2020", DailyPrice=2000, Description="1.0 EcoBoost"},
-            new Car{Id=4, BrandId=2, ColorId=3, CarName="Kuga", ModelYear="2019", DailyPrice=6000, Description="1.5 EcoBlue"},
+            new Car{Id=1, BrandId=1, ColorId=1, Name="C3 Aircross", ModelYear="2000", DailyPrice=3000, Description="1.2 PureTech"},
+            new Car{Id=2, BrandId=1, ColorId=2, Name="C4 Cactus", ModelYear="2005", DailyPrice=5000, Description="1.5 BlueHDI"},
+            new Car{Id=3, BrandId=2, ColorId=2, Name="EcoSport", ModelYear="2020", DailyPrice=2000, Description="1.0 EcoBoost"},
+            new Car{Id=4, BrandId=2, ColorId=3, Name="Kuga", ModelYear="2019", DailyPrice=6000, Description="1.5 EcoBlue"},
             };
         }
         public void Add(Car car)
         {
-            _cars.Add(car);
+            throw new NotImplementedException();
         }
 
         public void Delete(Car car)
@@ -30,9 +31,19 @@ namespace DataAccess.Concrete.InMemory
             _cars.Remove(carToDelete);
         }
 
+        public Car Get(Expression<Func<Car, bool>> filter)
+        {
+            throw new NotImplementedException();
+        }
+
         public List<Car> GetAll()
         {
             return _cars;
+        }
+
+        public List<Car> GetAll(Expression<Func<Car, bool>> filter = null)
+        {
+            throw new NotImplementedException();
         }
 
         public List<Car> GetByBrand(int brandId)
@@ -47,7 +58,7 @@ namespace DataAccess.Concrete.InMemory
         {
             Car carToUpdate = _cars.SingleOrDefault(c => c.Id == car.Id);
             carToUpdate.ColorId = car.ColorId;
-            carToUpdate.CarName = car.CarName;
+            carToUpdate.Name = car.Name;
             carToUpdate.BrandId = car.BrandId;
             carToUpdate.DailyPrice = car.DailyPrice;
             carToUpdate.Description = car.Description;
