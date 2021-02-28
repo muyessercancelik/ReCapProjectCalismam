@@ -1,6 +1,8 @@
 ﻿using Business.Abstract;
+using DataAccess;
 using DataAccess.Absract;
 using Entities.Concrete;
+using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -15,12 +17,21 @@ namespace Business.Concrete
             _carDal = carDal;
         }
 
-        public void Add(Car car)
+        public List<Car> GetAll()
         {
-            if (car.Name.Length>=2 && car.DailyPrice>0)
+            return _carDal.GetAll();
+        }
+
+        public Car GetById(int carId)
+        {
+            return _carDal.Get(c=>c.CarId == carId);
+        }
+        public void Insert(Car car)
+        {
+            if (car.CarName.Length >= 2 && car.DailyPrice > 0)
             {
                 _carDal.Add(car);
-                Console.WriteLine(car.Name+" "+ "eklendi.");
+                Console.WriteLine(car.CarName + " " + "eklendi.");
             }
             else
             {
@@ -30,10 +41,42 @@ namespace Business.Concrete
 
         public void Delete(Car car)
         {
-            throw new NotImplementedException();
+            _carDal.Delete(car);
+            Console.WriteLine(car.CarName + " " + "silindi.");
         }
 
-        public List<Car> GetAll()
+        public void Update(Car car)
+        {
+            _carDal.Update(car);
+            Console.WriteLine(car.CarName + " " + "güncellendi.");
+
+        }
+
+        public List<Car> GetCarsByBrandId(int brandId)
+        {
+            return _carDal.GetAll(b=>b.BrandId== brandId);
+        }
+
+        public List<Car> GetCarsByColorId(int colorId)
+        {
+            return _carDal.GetAll(cId=>cId.ColorId==colorId);
+        }
+
+        public List<CarDetailDto> GetCarDetails()
+        {
+            return _carDal.GetCarDetails();
+        }
+
+
+
+
+
+
+
+
+
+
+        /*public List<Car> GetAll()
         {
             return _carDal.GetAll();
         }
@@ -48,10 +91,7 @@ namespace Business.Concrete
             return _carDal.GetAll(c=>c.ColorId==idColor);
         }
 
-        public void Update(Car car)
-        {
-            _carDal.Update(car);
-            Console.WriteLine(car.Name + " " + "güncellendi.");
-        }
+        
+        }*/
     }
 }
