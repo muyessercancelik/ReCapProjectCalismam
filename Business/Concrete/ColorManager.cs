@@ -19,6 +19,7 @@ namespace Business.Concrete
         public void Delete(Color color)
         {
             _colorDal.Delete(color);
+            Console.WriteLine(color.ColorName + " " + "isimli Renk " + " " + "veri tabanından silindi.");
         }
 
         public List<Color> GetAll()
@@ -34,11 +35,13 @@ namespace Business.Concrete
         public void Insert(Color color)
         {
             _colorDal.Add(color);
+            Console.WriteLine(color.ColorName + " " + " veri tabanına eklendi.");
         }
 
         public void Update(Color color)
         {
             _colorDal.Update(color);
+            Console.WriteLine(color.ColorId + " " + "ID'li Renk " + " " + "veri tabanında güncellendi.");
         }
     }
 }

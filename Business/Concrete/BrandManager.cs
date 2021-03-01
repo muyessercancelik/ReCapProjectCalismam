@@ -19,6 +19,7 @@ namespace Business.Concrete
         public void Delete(Brand brand)
         {
             _brandDal.Delete(brand);
+            Console.WriteLine(brand.BrandName + " " + "isimli Marka " + " " + "veri tabanından silindi.");
         }
 
         public List<Brand> GetAll()
@@ -34,11 +35,13 @@ namespace Business.Concrete
         public void Insert(Brand brand)
         {
             _brandDal.Add(brand);
+            Console.WriteLine(brand.BrandName + " " + "veri tabanına eklendi.");
         }
 
         public void Update(Brand brand)
         {
             _brandDal.Update(brand);
+            Console.WriteLine(brand.BrandId + " " + "ID'li Renk " + " " + "veri tabanında güncellendi.");
         }
     }
 }

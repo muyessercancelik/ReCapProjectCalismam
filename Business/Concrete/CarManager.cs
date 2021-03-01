@@ -42,13 +42,13 @@ namespace Business.Concrete
         public void Delete(Car car)
         {
             _carDal.Delete(car);
-            Console.WriteLine(car.CarName + " " + "silindi.");
+            Console.WriteLine(car.CarName + " " + "isimli Car " + " " + "veri tabanından silindi.");
         }
 
         public void Update(Car car)
         {
             _carDal.Update(car);
-            Console.WriteLine(car.CarName + " " + "güncellendi.");
+            Console.WriteLine(car.CarId + " " + "ID'li Car " + " " + "veri tabanında güncellendi.");
 
         }
 
@@ -67,31 +67,5 @@ namespace Business.Concrete
             return _carDal.GetCarDetails();
         }
 
-
-
-
-
-
-
-
-
-
-        /*public List<Car> GetAll()
-        {
-            return _carDal.GetAll();
-        }
-
-        public List<Car> GetCarsByBrandId(int idBrand)
-        {
-            return _carDal.GetAll(c=>c.BrandId==idBrand);
-        }
-
-        public List<Car> GetCarsByColorId(int idColor)
-        {
-            return _carDal.GetAll(c=>c.ColorId==idColor);
-        }
-
-        
-        }*/
     }
 }
