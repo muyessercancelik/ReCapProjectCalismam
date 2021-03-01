@@ -1,7 +1,10 @@
 ﻿using Business.Abstract;
+using Business.Constants;
+using Core.Utilities.Results;
 using DataAccess;
 using DataAccess.Absract;
 using Entities.Concrete;
+using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -16,32 +19,36 @@ namespace Business.Concrete
             _colorDal = colorDal;
         }
 
-        public void Delete(Color color)
+        public IDataResult<List<Color>> GetAll()
+        {
+            return new SuccessDataResult<List<Color>>(_colorDal.GetAll());
+        }
+
+        public IDataResult<Color> GetById(int colorId)
+        {
+            return new SuccessDataResult<Color>(_colorDal.Get(c => c.ColorId == colorId));
+        }
+        public IResult Insert(Color color)
+        {
+            if (color.ColorName.Length < 5)
+            {
+                return new ErrorResult(Messages.ColorNameInvalid);
+            }
+            _colorDal.Add(color);
+            return new SuccessResult(Messages.ColorAdded);
+        }
+
+        public IResult Delete(Color color)
         {
             _colorDal.Delete(color);
-            Console.WriteLine(color.ColorName + " " + "isimli Renk " + " " + "veri tabanından silindi.");
+            return new SuccessResult(Messages.ColorDeleted);
         }
 
-        public List<Color> GetAll()
-        {
-            return _colorDal.GetAll();
-        }
-
-        public Color GetById(int colorId)
-        {
-            return _colorDal.Get(c=>c.ColorId==colorId);
-        }
-
-        public void Insert(Color color)
-        {
-            _colorDal.Add(color);
-            Console.WriteLine(color.ColorName + " " + " veri tabanına eklendi.");
-        }
-
-        public void Update(Color color)
+        public IResult Update(Color color)
         {
             _colorDal.Update(color);
-            Console.WriteLine(color.ColorId + " " + "ID'li Renk " + " " + "veri tabanında güncellendi.");
+            return new SuccessResult(Messages.ColorUpdated);
+
         }
     }
 }

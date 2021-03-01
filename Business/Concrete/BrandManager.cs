@@ -1,7 +1,10 @@
 ﻿using Business.Abstract;
+using Business.Constants;
+using Core.Utilities.Results;
 using DataAccess;
 using DataAccess.Absract;
 using Entities.Concrete;
+using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -16,32 +19,37 @@ namespace Business.Concrete
             _brandDal = brandDal;
         }
 
-        public void Delete(Brand brand)
+        public IDataResult<List<Brand>> GetAll()
+        {
+            return new SuccessDataResult<List<Brand>>(_brandDal.GetAll());
+        }
+
+        public IDataResult<Brand> GetById(int brandId)
+        {
+            return new SuccessDataResult<Brand>(_brandDal.Get(c => c.BrandId == brandId));
+        }
+        public IResult Insert(Brand brand)
+        {
+            if (brand.BrandName.Length < 5)
+            {
+                return new ErrorResult(Messages.BrandNameInvalid);
+            }
+            _brandDal.Add(brand);
+            return new SuccessResult(Messages.BrandAdded);
+        }
+
+        public IResult Delete(Brand brand)
         {
             _brandDal.Delete(brand);
-            Console.WriteLine(brand.BrandName + " " + "isimli Marka " + " " + "veri tabanından silindi.");
+            return new SuccessResult(Messages.ColorDeleted);
         }
 
-        public List<Brand> GetAll()
-        {
-            return _brandDal.GetAll();
-        }
-
-        public Brand GetById(int brandId)
-        {
-            return _brandDal.Get(b=>b.BrandId== brandId);
-        }
-
-        public void Insert(Brand brand)
-        {
-            _brandDal.Add(brand);
-            Console.WriteLine(brand.BrandName + " " + "veri tabanına eklendi.");
-        }
-
-        public void Update(Brand brand)
+        public IResult Update(Brand brand)
         {
             _brandDal.Update(brand);
-            Console.WriteLine(brand.BrandId + " " + "ID'li Renk " + " " + "veri tabanında güncellendi.");
+            return new SuccessResult(Messages.ColorUpdated);
+
         }
+
     }
 }
