@@ -5,9 +5,9 @@ using System.Text;
 
 namespace Entities.DTOs
 {
-    public class BrandDetailDto:IDto
+    public class UserDetailDto:IDto
     {
-        public int BrandId { get; set; }
-        public string BrandName { get; set; }
+        public int UserId { get; set; }
+        public string UserName { get; set; }
     }
 }

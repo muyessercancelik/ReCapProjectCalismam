@@ -12,12 +12,24 @@ namespace ConsoleUI
         {
             //ColorTest();
             //BrandTest();
-            CarTest();
+            //CarTest();
             //AddColorTest();
             //AddBrandTest();
             //AddCarTest();
             //UpdateColorTest();
             //DeleteColorTest();
+
+            RentalManager rentalManager = new RentalManager(new EfRentalDal());
+            var result= rentalManager.Add(new Rental { RentalId=7, CarId=3, CustomerId=1, RentDate=new DateTime(2021,02,25), ReturnDate=new DateTime(2021, 03, 01) });
+            if (result.Success)
+            {
+                Console.WriteLine(result.Message);
+            }
+            else
+            {
+                Console.WriteLine(result.Message);
+            }
+
 
         }
 
